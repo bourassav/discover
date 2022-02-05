@@ -33,3 +33,5 @@ ggplot(mpg) + aes(x="class") + geom_bar()
 ggplot(huron) + aes(x="level") + stat_bin(bins=10) + geom_bar()
 
 ggplot(huron) + aes(x="factor(decade)", y="level") + geom_boxplot()
+
+# OK, I get it. You can do like in ggplot, which is great.
