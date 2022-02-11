@@ -133,4 +133,34 @@ histogram + geom_histogram()
 # %% ANCHOR 4.7 Boxplots (box-whisker diagrams)
 
 boxplot = ggplot(df_festival, aes("gender", "day1"))
-boxplot + geom_boxplot()
+boxplot + geom_boxplot() + labs(x="Gender", y="Hygiene (Day 1 of festival)")
+
+# Self-test
+
+df_festival_sorted = df_festival.sort_values(
+    by="day1",
+    ascending=False).iloc[1:, :]
+boxplot = ggplot(df_festival_sorted, aes("gender", "day1"))
+boxplot + geom_boxplot() + labs(x="Gender", y="Hygiene (Day 1 of festival)")
+
+# %% ANCHOR 4.2 Janve superbrain
+
+df_zscores = df_festival.copy()
+df_zscores['day2'] = df_zscores['day2'].str.replace(' ', '')
+df_zscores['day2'] = pd.to_numeric(df_zscores['day2'])
+df_zscores['zscore'] = stats.zscore(df_zscores['day2'].dropna())
+df_zscores.sort_values('zscore', ascending=False)
+
+# %%
+
+def get_zscore_proportions(serie):
+    """From a serie of scores (numeric values), this function returns the
+    proportion of zcores above 1.96, 2.58 and 3.29.
+
+    Args:
+        serie: pandas serie of numeric values
+    """
+    zscores = stats.zscore(serie)
+
+    return zscores
+
